@@ -600,57 +600,7 @@ def screen_upload():
             st.success("No missing values detected.")
 
 
-# --- Screen 2: EDA ---
-def screen_eda():
-    if st.session_state['df'] is None:
-        st.warning("Upload a dataset first (Tab 1).")
-        return
-
-    df = st.session_state['df']
-    st.header("📊 Exploratory Data Analysis")
-
-    fraud_pct = df['Class'].mean() * 100
-    st.error(
-        f"⚠️ **Severe Class Imbalance:** {fraud_pct:.3f}% fraud. "
-        "A model predicting 'never fraud' scores "
-        f"{100 - fraud_pct:.3f}% accuracy — which is why "
-        "**we never use accuracy as a metric**. "
-        "Use Precision, Recall, and F1."
-    )
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("Class Distribution")
-        fig = plot_class_dist(df)
-        st.pyplot(fig)
-        plt.close()
-
-    with col2:
-        st.subheader("Amount Distribution")
-        fig = plot_amount_dist(df)
-        st.pyplot(fig)
-        plt.close()
-
-    st.subheader("Transaction Hour of Day (Fraud vs Normal)")
-    st.caption(
-        "Research (Unit8, 2024) found that transactions between "
-        "00:00–05:00 have higher anomaly scores. We engineer an "
-        "'Hour' feature from the Time column to capture this."
-    )
-    fig = plot_hour_dist(df)
-    st.pyplot(fig)
-    plt.close()
-
-    st.subheader("Feature Correlation with Class (Top 10)")
-    fig = plot_correlation_heatmap(df)
-    st.pyplot(fig)
-    plt.close()
-
-    st.subheader("Descriptive Statistics")
-    st.dataframe(df.describe().T.style.format("{:.4f}"), use_container_width=True)
-
-
-# --- Screen 3: Detection ---
+# --- Screen 2: Detection ---
 def screen_detection():
     if st.session_state['df'] is None:
         st.warning("Upload a dataset first (Tab 1).")
@@ -790,10 +740,10 @@ def screen_detection():
                 "Re-run to change contamination.")
 
 
-# --- Screen 4: Results ---
+# --- Screen 3: Results ---
 def screen_results():
     if not st.session_state['detection_done']:
-        st.warning("Run detection first (Tab 3).")
+        st.warning("Run detection first (Tab 2).")
         return
 
     st.header("📈 Detection Results")
@@ -902,10 +852,10 @@ def screen_results():
     plt.close()
 
 
-# --- Screen 5: Transaction Explorer ---
+# --- Screen 4: Transaction Explorer ---
 def screen_explorer():
     if not st.session_state['detection_done']:
-        st.warning("Run detection first (Tab 3).")
+        st.warning("Run detection first (Tab 2).")
         return
 
     st.header("🔎 Flagged Transactions Explorer")
@@ -953,7 +903,7 @@ def screen_explorer():
     )
     if selected is not None:
         st.session_state['selected_tx_idx'] = int(selected)
-        st.info(f"Selected Transaction #{selected}. Go to Tab 6 (Explanation) to see SHAP details.")
+        st.info(f"Selected Transaction #{selected}. Go to Tab 5 (Explanation) to see SHAP details.")
 
     # CSV Export
     st.subheader("Export Audit Report")
@@ -977,16 +927,16 @@ def screen_explorer():
         )
 
 
-# --- Screen 6: Explanation Panel ---
+# --- Screen 5: Explanation Panel ---
 def screen_explanation():
     if not st.session_state['detection_done']:
-        st.warning("Run detection first (Tab 3).")
+        st.warning("Run detection first (Tab 2).")
         return
 
     if st.session_state['selected_tx_idx'] is None:
         st.warning(
             "No transaction selected. "
-            "Go to Tab 5 (Transaction Explorer) and select one."
+            "Go to Tab 4 (Transaction Explorer) and select one."
         )
         return
 
@@ -1063,19 +1013,17 @@ def main():
 
     tabs = st.tabs([
         "📁 1. Upload",
-        "📊 2. EDA",
-        "🎯 3. Detection",
-        "📈 4. Results",
-        "🔎 5. Explorer",
-        "💡 6. Explanation",
+        "🎯 2. Detection",
+        "📈 3. Results",
+        "🔎 4. Explorer",
+        "💡 5. Explanation",
     ])
 
     with tabs[0]: screen_upload()
-    with tabs[1]: screen_eda()
-    with tabs[2]: screen_detection()
-    with tabs[3]: screen_results()
-    with tabs[4]: screen_explorer()
-    with tabs[5]: screen_explanation()
+    with tabs[1]: screen_detection()
+    with tabs[2]: screen_results()
+    with tabs[3]: screen_explorer()
+    with tabs[4]: screen_explanation()
 
 
 if __name__ == "__main__":

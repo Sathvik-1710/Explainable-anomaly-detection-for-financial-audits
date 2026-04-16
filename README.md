@@ -1,85 +1,62 @@
 # Explainable Anomaly Detection for Financial Audits
 
-A **schema-adaptive** anomaly detection system that works with **any** financial
-transaction dataset. Upload a CSV or Excel file, map your columns, and get
-explainable anomaly flags powered by Isolation Forest + SHAP + rule-based reasoning.
+A **schema-adaptive** machine learning system built for financial auditing. The system uses an unsupervised **Isolation Forest** to detect anomalies and a three-layer explainability architecture (SHAP, Rule-based, and Natural Language) to provide auditor-grade reasoning for every flagged transaction.
 
 ## Key Features
 
-- **Schema-Adaptive**: Works with any dataset — no fixed column requirements
-- **Column Mapping UI**: Tell the system what each column means
-- **3-Layer Explainability**:
-  - SHAP TreeExplainer (model-faithful feature contributions)
-  - Rule-based reasoning (business-meaningful thresholds)
-  - Natural language explanations (combined human-readable summary)
-- **Meaningful Features**: Engineers hour_of_day, amount_zscore, is_rare_vendor, etc.
-- **Audit-Ready Export**: CSV report with metadata, explanations, and disclaimers
-
-## Quick Start
-
-```bash
-# 1. Create virtual environment
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # macOS/Linux
-
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. (Optional) Build the Pre-Trained Offline Model
-python train_offline.py
-
-# 4. Run the app
-streamlit run app.py
-```
-
-## Demo Dataset
-
-A sample dataset is included at `sample_data/sample_transactions.csv` with 100
-realistic transactions across 5 accounts, including anomalous patterns.
-
-## How It Works
-
-1. **Upload** any CSV or Excel file with financial transactions
-2. **Map columns** — tell the system which column is "amount", "date", "vendor", etc.
-3. **Run detection** — the system pads missing features and instantaneously predicts anomalies using the pre-trained offline model.
-4. **Review results** — see flagged transactions with anomaly scores
-5. **Read explanations** — each flag has SHAP analysis + rule-based reasoning + NL summary
-
-## Supported Columns
-
-| Role | Required? | Examples |
-|------|-----------|---------|
-| Amount | ✅ Yes | amount, total, value, price |
-| Time/Date | ✅ Yes | date, timestamp, created_at |
-| Vendor | Optional | merchant, vendor, payee |
-| Location | Optional | city, country, region |
-| Account ID | Optional | account_id, customer_id, user |
-| Label | Optional | class, is_fraud, label (for evaluation) |
-
-## Tech Stack
-
-- Python 3.12+
-- scikit-learn (Isolation Forest)
-- SHAP (TreeExplainer)
-- Streamlit
-- pandas, numpy, matplotlib, seaborn, openpyxl
+1. **Schema-Adaptive Engine**: Works with *any* CSV or Excel ledger. You don't need a fixed column structure; simply map your columns in the UI.
+2. **Three-Layer Explainability**:
+    - **SHAP (TreeExplainer)**: Mathematically exact feature contributions.
+    - **Rule-Based**: Business-logic thresholds (e.g., "5.2x the account average").
+    - **Natural Language**: Human-readable summaries perfect for compliance reports.
+3. **Advanced Feature Engineering**: Automatically extracts 14 behavioural, temporal, and statistical features (e.g., unusual time-of-day, rare vendors, account frequency spikes).
+4. **Offline Inference**: Uses a pre-trained model for zero-shot detection. Missing mapped columns are gracefully padded, meaning it handles reduced-feature datasets without breaking.
+5. **Robust Quality Assurance**: Backed by a comprehensive 62-case test suite covering 100% of the core calculation engine (`engine.py`).
 
 ## Architecture
 
+The project strictly separates the presentation layer from the computation layer:
+
+- **`engine.py`**: Pure Python data processing, ML inference, and XAI calculations. 100% independent of Streamlit.
+- **`app.py`**: The Streamlit user interface (5-screen flow: Upload → Schema Map → Detect → Explain → Export).
+- **`train_offline.py`**: The offline pipeline used to generate the frozen `models/model.pkl`.
+
+## Quick Start
+
+### 1. Setup Environment
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
-app.py      → Streamlit UI (5 screens)
-engine.py   → Core logic (features, model, SHAP, rules, NL generator)
+
+### 2. Run Tests (Optional but Recommended)
+Verify the core engine is operating correctly:
+```bash
+pytest tests/test_engine.py -v
 ```
 
-## Kaggle Credit Card Fraud Dataset
+### 3. Launch Application
+```bash
+streamlit run app.py
+```
 
-The system is backward compatible with the Kaggle CC Fraud dataset.
-Download from: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
-Place at: `data/creditcard.csv`
+## Using the System
 
-When using this dataset, map: Amount → "Amount", Time → "Time", Label → "Class".
+1. Open your browser to `http://localhost:8501`.
+2. Upload the provided demo dataset: `sample_data/sample_transactions.csv`.
+3. Map the required columns (`Amount` and `Time/Date`) and optional columns (`Vendor`, `Location`, `Account ID`). *Note: Mapping all columns yields the highest accuracy.*
+4. Adjust the **Contamination Rate** to set the strictness of the anomaly flagging (0.05 targets 5% of data, recommended for strict audits).
+5. Review the flagged anomalies, inspect their unique 3-layer explanations, and download the resulting CSV Audit Report.
+
+## Model Performance
+
+The pre-trained Isolation Forest model achieved the following performance on a held-out dataset of ~11,000 transactions:
+- **AUC-ROC**: 0.8038
+- **Precision**: 0.7576 (at 0.05 contamination limit)
+- **Top Fraud Indicators**: Transactions at rarely-seen locations, spikes in account frequency, and massive deviations from an account's historical average.
+
+*(For full methodology, results, and architecture details, refer to `report/mini_project_report.md`)*
 
 ## License
-
 MIT

@@ -14,3 +14,16 @@ data/*.csv
 outputs/*.csv
 .code-review-graph/
 .pytest_cache/
+
+# IDE / System Rules
+.claude/
+.kiro/
+.cursorrules
+.mcp.json
+.opencode.json
+.windsurfrules
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+BUILD.md
+NORTH_STAR.md

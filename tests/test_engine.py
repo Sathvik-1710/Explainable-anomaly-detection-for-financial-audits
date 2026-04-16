@@ -544,6 +544,8 @@ class TestGenerateRuleExplanations:
             "amount_median": 400.0,
             "amount_p95": 1000.0,
             "amount_p99": 2000.0,
+            "amount_p05": 100.0,
+            "amount_p01": 50.0,
             "total_transactions": 100,
         }
 
@@ -618,13 +620,13 @@ class TestGenerateNlExplanation:
         )
         assert "disclaimer" in nl.lower() or "human review" in nl.lower()
 
-    def test_contains_anomaly_score(self):
+    def test_contains_bold_amount(self):
         row = pd.Series({"amount": 800.0})
         mapping = {"amount": "amount"}
         nl = engine.generate_nl_explanation(
             self._top_features(), [], -0.3142, row, mapping
         )
-        assert "-0.3142" in nl or "0.3142" in nl
+        assert "**$800.00**" in nl or "800" in nl
 
     def test_includes_shap_analysis(self):
         row = pd.Series({"amount": 2000.0})
@@ -632,7 +634,7 @@ class TestGenerateNlExplanation:
         nl = engine.generate_nl_explanation(
             self._top_features(), ["High amount"], -0.4, row, mapping
         )
-        assert "shap" in nl.lower() or "amount zscore" in nl.lower() or "Amount Zscore" in nl
+        assert "Statistical" in nl or "deviates" in nl
 
 
 # ===========================================================================
@@ -651,7 +653,8 @@ class TestBuildExportCsv:
         mapping = _sample_mapping()
         stats = {"amount_mean": 500.0, "amount_std": 200.0,
                  "amount_median": 400.0, "amount_p95": 1000.0,
-                 "amount_p99": 2000.0, "total_transactions": n}
+                 "amount_p99": 2000.0, "amount_p05": 100.0,
+                 "amount_p01": 50.0, "total_transactions": n}
         contamination = 0.1
         return labels, scores, shap_values, feature_names, df, test_idx, mapping, stats, contamination
 

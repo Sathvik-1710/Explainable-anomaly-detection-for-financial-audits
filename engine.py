@@ -277,6 +277,8 @@ def engineer_features(df, mapping):
         'amount_median': float(amount.median()),
         'amount_p95': float(amount.quantile(0.95)),
         'amount_p99': float(amount.quantile(0.99)),
+        'amount_p05': float(amount.quantile(0.05)),
+        'amount_p01': float(amount.quantile(0.01)),
         'total_transactions': len(df),
         'time_method': time_method,
     }
@@ -591,6 +593,8 @@ def generate_rule_explanations(row_original, row_features, mapping, stats):
         mean = stats['amount_mean']
         p95 = stats['amount_p95']
         p99 = stats['amount_p99']
+        p05 = stats['amount_p05']
+        p01 = stats['amount_p01']
 
         if mean > 0:
             ratio = amount / mean
@@ -611,6 +615,15 @@ def generate_rule_explanations(row_original, row_features, mapping, stats):
         elif amount > p95:
             explanations.append(
                 f"📊 Amount exceeds the 95th percentile (${p95:,.2f})"
+            )
+            
+        if amount > 0 and amount < p01:
+            explanations.append(
+                f"📉 Amount is extremely low (bottom 1% of transactions: ${amount:,.2f})"
+            )
+        elif amount > 0 and amount < p05:
+            explanations.append(
+                f"📉 Amount is unusually low (bottom 5% of transactions: ${amount:,.2f})"
             )
 
     # --- Time rules ---
@@ -641,6 +654,10 @@ def generate_rule_explanations(row_original, row_features, mapping, stats):
             explanations.append(
                 f"🏪 Rare vendor: \"{vendor}\" (seen ≤2 times in dataset)"
             )
+        
+        vendor_freq = row_features.get('vendor_frequency', 0)
+        if float(vendor_freq) > 0.05 and stats['total_transactions'] < 1000:
+            explanations.append(f"🏪 Statistically high-frequency vendor ({vendor} appears very often in this small sample)")
         if 'unknown' in vendor.lower():
             explanations.append(
                 f"⚠️ Vendor identified as \"{vendor}\" — unknown merchant"
@@ -683,20 +700,25 @@ def generate_nl_explanation(
     shap_top_features, rule_explanations, anomaly_score, row_original, mapping
 ):
     """
-    Generate a combined natural language explanation.
-
-    Parameters
-    ----------
-    shap_top_features : list[dict] — from get_top_features()
-    rule_explanations : list[str] — from generate_rule_explanations()
-    anomaly_score : float — model's decision score
-    row_original : pd.Series — original transaction data
-    mapping : dict — column mapping
-
-    Returns
-    -------
-    explanation : str — human-readable paragraph
+    Generate a combined, highly-readable natural language explanation without technical jargon.
     """
+    # Feature Translation Dictionary
+    feature_translations = {
+        'log_amount': 'The transaction amount is highly unusual compared to historical averages',
+        'amount_zscore': 'The transaction amount deviates significantly from the typical range',
+        'amount_deviation_from_mean': 'The transaction amount deviates significantly from the historical average',
+        'hour_of_day': 'This transaction occurred at an unusual time of day',
+        'high_risk_time': 'This transaction occurred during a high-risk overnight window',
+        'day_of_week': 'Transactions rarely occur on this day of the week',
+        'is_weekend': 'Transactions rarely occur on weekends',
+        'vendor_frequency': 'This specific vendor occurs at a highly unusual frequency',
+        'is_rare_vendor': 'This transaction occurred at a vendor that is rarely seen',
+        'location_frequency': 'Transactions rarely occur in this location',
+        'is_rare_location': 'This location is rarely seen in the dataset',
+        'amount_vs_account_avg': 'The amount is highly unusual compared to this specific account\'s typical spending behavior',
+        'account_tx_frequency': 'This account has a highly unusual rate of transactions'
+    }
+
     parts = []
 
     # Opening
@@ -704,42 +726,45 @@ def generate_nl_explanation(
     if amount_col and amount_col in row_original.index:
         amount = float(row_original[amount_col])
         parts.append(
-            f"This transaction of ${amount:,.2f} was flagged as anomalous "
-            f"(anomaly score: {anomaly_score:.4f})."
+            f"### This transaction of **${amount:,.2f}** was flagged for review."
         )
     else:
         parts.append(
-            f"This transaction was flagged as anomalous "
-            f"(anomaly score: {anomaly_score:.4f})."
+            f"### This transaction was flagged for review."
         )
 
-    # Rule-based reasons
+    # Use rules as primary explanation if available
     if rule_explanations:
-        parts.append("\n\n**Key findings:**")
+        parts.append("\n**Business Logic Findings:**")
         for exp in rule_explanations:
             parts.append(f"\n- {exp}")
 
-    # SHAP-based reasons
+    # Translate SHAP into plain english
     anomaly_features = [f for f in shap_top_features if f['direction'] == 'toward anomaly']
     if anomaly_features:
-        parts.append("\n\n**Model analysis (SHAP):**")
-        for f in anomaly_features[:3]:
-            name = f['feature'].replace('_', ' ').title()
-            parts.append(
-                f"\n- {name} pushed this transaction toward being flagged "
-                f"(Impact: {abs(f['shap_value']):.4f} — the larger this number, "
-                f"the stronger this factor contributed to the anomaly flag)"
-            )
+        parts.append("\n\n**Statistical Behavior Findings:**")
+        # Ensure we don't repeat the exact same sentence if multiple amount features triggered
+        used_sentences = set()
+        for f in anomaly_features:
+            f_name = f['feature']
+            sentence = feature_translations.get(f_name, f"The pattern of '{f_name}' is statistically unusual")
+            
+            if sentence not in used_sentences:
+                parts.append(f"\n- {sentence}.")
+                used_sentences.add(sentence)
+            
+            if len(used_sentences) >= 3:
+                break # Limit to top 3 unique sentences
 
     # Disclaimer
     parts.append(
-        "\n\n---\n*⚠️ Disclaimer: This is an automated analysis. "
-        "Anomaly detection identifies statistically unusual patterns — "
-        "it does not confirm fraud. Human review is required before "
-        "any action is taken.*"
+        "\n\n---\n*⚠️ Disclaimer: This is an automated assessment based on statistical "
+        "deviations from historical data. It does not definitively confirm fraud. "
+        "Please conduct a human review of the transaction context.*"
     )
 
-    return ''.join(parts)
+    return "".join(parts)
+
 
 
 # ============================================================

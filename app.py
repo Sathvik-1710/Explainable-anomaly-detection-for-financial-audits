@@ -683,38 +683,33 @@ def screen_explanation():
     )
     st.markdown(nl_explanation)
 
-    # --- RULE-BASED EXPLANATIONS ---
-    if rule_explanations:
-        st.subheader("📋 Rule-Based Findings")
-        for exp in rule_explanations:
-            st.markdown(f"- {exp}")
-
-    # --- SHAP WATERFALL ---
-    st.subheader("🔬 AI Factor Breakdown")
-    st.caption(
-        "🔵 Blue (Negative Impact) = pushes score heavily toward Anomaly · 🔴 Red (Positive Impact) = pushes score toward Normal."
-    )
-
-    try:
-        fig = _make_waterfall(idx, shap_values, X_test_scaled, feature_names, explainer)
-        st.pyplot(fig)
-        plt.close()
-    except Exception as e:
-        st.error(f"Could not render waterfall plot: {e}")
-
-    # --- TOP FEATURES ---
-    st.subheader("Top 5 Contributing Factors")
-    for rank, f in enumerate(shap_top, 1):
-        icon = "🔵" if f['direction'] == 'toward anomaly' else "🔴"
-        if f['direction'] == 'toward anomaly':
-            direction_text = "pushed toward flagging"
-        else:
-            direction_text = "pushed toward normal"
-        name = f['feature'].replace('_', ' ').title()
-        st.markdown(
-            f"**{rank}. {name}** — "
-            f"Impact: `{abs(f['shap_value']):.4f}` {icon} {direction_text}"
+    # --- SHAP WATERFALL & TECHNICAL DETAILS (HIDDEN BY DEFAULT) ---
+    with st.expander("🔬 View Technical Model Analysis (Advanced)"):
+        st.subheader("AI Factor Breakdown")
+        st.caption(
+            "🔵 Blue (Negative Impact) = pushes score heavily toward Anomaly · 🔴 Red (Positive Impact) = pushes score toward Normal."
         )
+
+        try:
+            fig = _make_waterfall(idx, shap_values, X_test_scaled, feature_names, explainer)
+            st.pyplot(fig)
+            plt.close()
+        except Exception as e:
+            st.error(f"Could not render waterfall plot: {e}")
+
+        # --- TOP FEATURES ---
+        st.subheader("Top 5 Contributing Factors")
+        for rank, f in enumerate(shap_top, 1):
+            icon = "🔵" if f['direction'] == 'toward anomaly' else "🔴"
+            if f['direction'] == 'toward anomaly':
+                direction_text = "pushed toward flagging"
+            else:
+                direction_text = "pushed toward normal"
+            name = f['feature'].replace('_', ' ').title()
+            st.markdown(
+                f"**{rank}. {name}** — "
+                f"Impact: `{abs(f['shap_value']):.4f}` {icon} {direction_text}"
+            )
 
     # --- ORIGINAL TRANSACTION DATA ---
     st.subheader("📄 Original Transaction Data")

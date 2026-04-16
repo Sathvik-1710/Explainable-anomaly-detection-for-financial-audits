@@ -16,5 +16,5 @@
         "is_rare_location"
     ],
     "n_features": 14,
-    "training_samples": 100
+    "training_samples": 9800
 }

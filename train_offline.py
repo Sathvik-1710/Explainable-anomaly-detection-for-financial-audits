@@ -6,15 +6,15 @@ from engine import load_file, engineer_features, preprocess, train_model
 
 def build_offline_model():
     print("Loading historical dataset...")
-    df = pd.read_csv("sample_data/sample_transactions.csv")
+    df = pd.read_csv("sample_data/synthetic_transactions.csv")
     
     mapping = {
-        'amount': 'amount',
-        'time': 'date',
-        'vendor': 'vendor',
-        'location': 'location',
-        'account_id': 'account_id',
-        'label': None
+        'amount': 'Amount',
+        'time': 'Timestamp',
+        'vendor': 'MerchantName',
+        'location': 'City',
+        'account_id': 'AccountNumber',
+        'label': 'IsFraud'
     }
     
     print("Engineering features...")

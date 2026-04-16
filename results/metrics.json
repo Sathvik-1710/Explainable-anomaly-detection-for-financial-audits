@@ -1,0 +1,169 @@
+{
+  "dataset": {
+    "train_rows": 47840,
+    "test_rows": 9568,
+    "features": [
+      "amount",
+      "log_amount",
+      "amount_zscore",
+      "amount_deviation_from_mean",
+      "hour_of_day",
+      "day_of_week",
+      "is_weekend",
+      "high_risk_time",
+      "amount_vs_account_avg",
+      "account_tx_frequency",
+      "vendor_frequency",
+      "is_rare_vendor",
+      "location_frequency",
+      "is_rare_location"
+    ],
+    "n_features": 14,
+    "fraud_rate": 0.166409
+  },
+  "evaluation": {
+    "0.01": {
+      "precision": 0.68,
+      "recall": 0.04271356783919598,
+      "f1": 0.08037825059101655,
+      "tp": 68,
+      "fp": 32,
+      "tn": 7944,
+      "fn": 1524,
+      "n_flagged": 100,
+      "auc_roc": 0.8037507623372631,
+      "auc_pr": 0.5362857866740904,
+      "contamination": 0.01,
+      "train_time": 0.538,
+      "n_test": 9568
+    },
+    "0.03": {
+      "precision": 0.7226027397260274,
+      "recall": 0.13253768844221106,
+      "f1": 0.22399150743099788,
+      "tp": 211,
+      "fp": 81,
+      "tn": 7895,
+      "fn": 1381,
+      "n_flagged": 292,
+      "auc_roc": 0.8037507623372631,
+      "auc_pr": 0.5362857866740904,
+      "contamination": 0.03,
+      "train_time": 0.507,
+      "n_test": 9568
+    },
+    "0.05": {
+      "precision": 0.7575757575757576,
+      "recall": 0.23555276381909548,
+      "f1": 0.3593675131768088,
+      "tp": 375,
+      "fp": 120,
+      "tn": 7856,
+      "fn": 1217,
+      "n_flagged": 495,
+      "auc_roc": 0.8037507623372631,
+      "auc_pr": 0.5362857866740904,
+      "contamination": 0.05,
+      "train_time": 0.498,
+      "n_test": 9568
+    },
+    "0.1": {
+      "precision": 0.7243186582809225,
+      "recall": 0.43404522613065327,
+      "f1": 0.5428122545168892,
+      "tp": 691,
+      "fp": 263,
+      "tn": 7713,
+      "fn": 901,
+      "n_flagged": 954,
+      "auc_roc": 0.8037507623372631,
+      "auc_pr": 0.5362857866740904,
+      "contamination": 0.1,
+      "train_time": 0.469,
+      "n_test": 9568
+    },
+    "0.15": {
+      "precision": 0.5859872611464968,
+      "recall": 0.5201005025125628,
+      "f1": 0.5510815307820299,
+      "tp": 828,
+      "fp": 585,
+      "tn": 7391,
+      "fn": 764,
+      "n_flagged": 1413,
+      "auc_roc": 0.8037507623372631,
+      "auc_pr": 0.5362857866740904,
+      "contamination": 0.15,
+      "train_time": 0.477,
+      "n_test": 9568
+    }
+  },
+  "feature_importance": [
+    {
+      "feature": "location_frequency",
+      "mean_abs_shap": 0.401738
+    },
+    {
+      "feature": "account_tx_frequency",
+      "mean_abs_shap": 0.38344
+    },
+    {
+      "feature": "amount_vs_account_avg",
+      "mean_abs_shap": 0.339003
+    },
+    {
+      "feature": "vendor_frequency",
+      "mean_abs_shap": 0.309542
+    },
+    {
+      "feature": "log_amount",
+      "mean_abs_shap": 0.309028
+    },
+    {
+      "feature": "amount",
+      "mean_abs_shap": 0.273726
+    },
+    {
+      "feature": "amount_zscore",
+      "mean_abs_shap": 0.266002
+    },
+    {
+      "feature": "amount_deviation_from_mean",
+      "mean_abs_shap": 0.166033
+    },
+    {
+      "feature": "hour_of_day",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "day_of_week",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "is_weekend",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "high_risk_time",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "is_rare_vendor",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "is_rare_location",
+      "mean_abs_shap": 0.0
+    }
+  ],
+  "stats": {
+    "amount_mean": 163.4651,
+    "amount_std": 303.7404,
+    "amount_median": 64.325,
+    "amount_p95": 875.342,
+    "amount_p99": 1094.7405,
+    "total_transactions": 47840,
+    "time_method": "failed"
+  },
+  "total_time": 8.01
+}

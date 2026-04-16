@@ -1,6 +1,3 @@
-# Added by code-review-graph
-.code-review-graph/
-
 venv/
 .env
 __pycache__/
@@ -12,7 +9,8 @@ __pycache__/
 .DS_Store
 Thumbs.db
 data/creditcard.csv
+data/*.csv
+!data/.gitkeep
 outputs/*.csv
-Building Explainable Anomaly Detector.md
-Building Explainable Anomaly Detector_1.md
-search_results.txt
+.code-review-graph/
+.pytest_cache/

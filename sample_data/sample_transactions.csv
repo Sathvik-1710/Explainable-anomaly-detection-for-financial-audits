@@ -1,0 +1,101 @@
+transaction_id,date,amount,vendor,category,location,account_id
+TXN001,2025-03-01 09:15:00,45.50,Starbucks,Food & Drink,New York,ACC001
+TXN002,2025-03-01 10:30:00,120.00,Amazon,Shopping,New York,ACC001
+TXN003,2025-03-01 14:22:00,32.00,Uber,Transport,New York,ACC001
+TXN004,2025-03-01 18:45:00,67.80,Whole Foods,Groceries,New York,ACC001
+TXN005,2025-03-02 08:00:00,55.00,Starbucks,Food & Drink,New York,ACC001
+TXN006,2025-03-02 12:15:00,89.99,Target,Shopping,New York,ACC001
+TXN007,2025-03-02 02:30:00,4500.00,Unknown Merchant,Transfer,Lagos,ACC001
+TXN008,2025-03-03 09:00:00,42.00,Starbucks,Food & Drink,New York,ACC001
+TXN009,2025-03-03 11:30:00,150.00,Best Buy,Electronics,New York,ACC001
+TXN010,2025-03-03 15:00:00,28.50,Chipotle,Food & Drink,New York,ACC001
+TXN011,2025-03-04 10:00:00,75.00,Shell Gas,Fuel,New York,ACC001
+TXN012,2025-03-04 03:15:00,8900.00,CryptoExchange,Transfer,Unknown,ACC001
+TXN013,2025-03-04 14:30:00,62.00,Trader Joes,Groceries,New York,ACC001
+TXN014,2025-03-05 09:45:00,38.00,Starbucks,Food & Drink,New York,ACC001
+TXN015,2025-03-05 16:00:00,95.00,Zara,Shopping,New York,ACC001
+TXN016,2025-03-01 08:30:00,52.00,Dunkin,Food & Drink,Boston,ACC002
+TXN017,2025-03-01 12:00:00,200.00,Nordstrom,Shopping,Boston,ACC002
+TXN018,2025-03-01 17:30:00,35.00,Lyft,Transport,Boston,ACC002
+TXN019,2025-03-02 09:15:00,48.00,Dunkin,Food & Drink,Boston,ACC002
+TXN020,2025-03-02 14:00:00,110.00,Home Depot,Home,Boston,ACC002
+TXN021,2025-03-02 01:45:00,12000.00,WireTransfer Intl,Transfer,Cayman Islands,ACC002
+TXN022,2025-03-03 10:30:00,65.00,CVS,Health,Boston,ACC002
+TXN023,2025-03-03 13:00:00,42.00,Panera,Food & Drink,Boston,ACC002
+TXN024,2025-03-03 23:50:00,7500.00,Unknown Merchant,Transfer,Unknown,ACC002
+TXN025,2025-03-04 08:00:00,55.00,Dunkin,Food & Drink,Boston,ACC002
+TXN026,2025-03-04 11:30:00,180.00,Apple Store,Electronics,Boston,ACC002
+TXN027,2025-03-04 15:45:00,30.00,Subway,Food & Drink,Boston,ACC002
+TXN028,2025-03-05 09:00:00,50.00,Dunkin,Food & Drink,Boston,ACC002
+TXN029,2025-03-05 12:30:00,320.00,Macys,Shopping,Boston,ACC002
+TXN030,2025-03-05 18:00:00,72.00,Whole Foods,Groceries,Boston,ACC002
+TXN031,2025-03-01 07:30:00,25.00,McDonalds,Food & Drink,Chicago,ACC003
+TXN032,2025-03-01 10:00:00,340.00,Costco,Shopping,Chicago,ACC003
+TXN033,2025-03-01 14:15:00,18.00,CTA Pass,Transport,Chicago,ACC003
+TXN034,2025-03-02 08:45:00,30.00,McDonalds,Food & Drink,Chicago,ACC003
+TXN035,2025-03-02 11:00:00,85.00,Walgreens,Health,Chicago,ACC003
+TXN036,2025-03-02 16:30:00,55.00,Jewel Osco,Groceries,Chicago,ACC003
+TXN037,2025-03-03 04:00:00,15000.00,Unknown ATM,Withdrawal,Dubai,ACC003
+TXN038,2025-03-03 09:30:00,28.00,McDonalds,Food & Drink,Chicago,ACC003
+TXN039,2025-03-03 13:45:00,200.00,Nike,Shopping,Chicago,ACC003
+TXN040,2025-03-03 17:00:00,42.00,Portillos,Food & Drink,Chicago,ACC003
+TXN041,2025-03-04 08:00:00,35.00,McDonalds,Food & Drink,Chicago,ACC003
+TXN042,2025-03-04 10:30:00,125.00,Target,Shopping,Chicago,ACC003
+TXN043,2025-03-04 03:30:00,6200.00,WireTransfer Intl,Transfer,Unknown,ACC003
+TXN044,2025-03-05 09:00:00,22.00,McDonalds,Food & Drink,Chicago,ACC003
+TXN045,2025-03-05 12:15:00,78.00,Aldi,Groceries,Chicago,ACC003
+TXN046,2025-03-05 15:30:00,160.00,Uniqlo,Shopping,Chicago,ACC003
+TXN047,2025-03-01 09:00:00,40.00,Peets Coffee,Food & Drink,San Francisco,ACC004
+TXN048,2025-03-01 11:30:00,250.00,Apple Store,Electronics,San Francisco,ACC004
+TXN049,2025-03-01 15:00:00,22.00,BART Pass,Transport,San Francisco,ACC004
+TXN050,2025-03-02 08:30:00,45.00,Peets Coffee,Food & Drink,San Francisco,ACC004
+TXN051,2025-03-02 13:00:00,95.00,Safeway,Groceries,San Francisco,ACC004
+TXN052,2025-03-02 17:45:00,180.00,REI,Shopping,San Francisco,ACC004
+TXN053,2025-03-03 02:00:00,9800.00,CryptoExchange,Transfer,Unknown,ACC004
+TXN054,2025-03-03 09:15:00,38.00,Peets Coffee,Food & Drink,San Francisco,ACC004
+TXN055,2025-03-03 14:30:00,65.00,Gap,Shopping,San Francisco,ACC004
+TXN056,2025-03-03 18:00:00,52.00,Trader Joes,Groceries,San Francisco,ACC004
+TXN057,2025-03-04 08:00:00,42.00,Peets Coffee,Food & Drink,San Francisco,ACC004
+TXN058,2025-03-04 11:00:00,310.00,Nordstrom,Shopping,San Francisco,ACC004
+TXN059,2025-03-04 15:30:00,28.00,In-N-Out,Food & Drink,San Francisco,ACC004
+TXN060,2025-03-05 04:15:00,11500.00,Unknown Merchant,Transfer,Hong Kong,ACC004
+TXN061,2025-03-05 09:30:00,50.00,Peets Coffee,Food & Drink,San Francisco,ACC004
+TXN062,2025-03-05 13:00:00,140.00,Whole Foods,Groceries,San Francisco,ACC004
+TXN063,2025-03-01 10:00:00,60.00,Tim Hortons,Food & Drink,Toronto,ACC005
+TXN064,2025-03-01 13:30:00,175.00,Hudson Bay,Shopping,Toronto,ACC005
+TXN065,2025-03-01 16:45:00,30.00,TTC Pass,Transport,Toronto,ACC005
+TXN066,2025-03-02 09:00:00,55.00,Tim Hortons,Food & Drink,Toronto,ACC005
+TXN067,2025-03-02 12:00:00,92.00,Shoppers,Health,Toronto,ACC005
+TXN068,2025-03-02 17:00:00,48.00,Loblaws,Groceries,Toronto,ACC005
+TXN069,2025-03-03 09:30:00,58.00,Tim Hortons,Food & Drink,Toronto,ACC005
+TXN070,2025-03-03 14:00:00,220.00,Best Buy,Electronics,Toronto,ACC005
+TXN071,2025-03-03 23:00:00,8200.00,WireTransfer Intl,Transfer,Unknown,ACC005
+TXN072,2025-03-04 08:15:00,52.00,Tim Hortons,Food & Drink,Toronto,ACC005
+TXN073,2025-03-04 11:45:00,135.00,Roots,Shopping,Toronto,ACC005
+TXN074,2025-03-04 15:00:00,40.00,Subway,Food & Drink,Toronto,ACC005
+TXN075,2025-03-05 03:00:00,13500.00,Unknown ATM,Withdrawal,Macau,ACC005
+TXN076,2025-03-05 09:00:00,48.00,Tim Hortons,Food & Drink,Toronto,ACC005
+TXN077,2025-03-05 12:30:00,88.00,Winners,Shopping,Toronto,ACC005
+TXN078,2025-03-05 16:00:00,62.00,Metro,Groceries,Toronto,ACC005
+TXN079,2025-03-06 09:00:00,50.00,Starbucks,Food & Drink,New York,ACC001
+TXN080,2025-03-06 14:00:00,72.00,Trader Joes,Groceries,New York,ACC001
+TXN081,2025-03-06 03:45:00,5600.00,Unknown Merchant,Transfer,Unknown,ACC001
+TXN082,2025-03-07 08:30:00,45.00,Starbucks,Food & Drink,New York,ACC001
+TXN083,2025-03-07 11:00:00,165.00,Nordstrom,Shopping,New York,ACC001
+TXN084,2025-03-07 15:30:00,38.00,Chipotle,Food & Drink,New York,ACC001
+TXN085,2025-03-06 08:00:00,55.00,Dunkin,Food & Drink,Boston,ACC002
+TXN086,2025-03-06 12:00:00,98.00,TJ Maxx,Shopping,Boston,ACC002
+TXN087,2025-03-06 16:30:00,45.00,Stop & Shop,Groceries,Boston,ACC002
+TXN088,2025-03-07 09:00:00,52.00,Dunkin,Food & Drink,Boston,ACC002
+TXN089,2025-03-07 13:30:00,210.00,Best Buy,Electronics,Boston,ACC002
+TXN090,2025-03-07 17:00:00,35.00,CVS,Health,Boston,ACC002
+TXN091,2025-03-06 07:30:00,28.00,McDonalds,Food & Drink,Chicago,ACC003
+TXN092,2025-03-06 10:45:00,145.00,Macys,Shopping,Chicago,ACC003
+TXN093,2025-03-06 14:00:00,55.00,Jewel Osco,Groceries,Chicago,ACC003
+TXN094,2025-03-07 08:00:00,32.00,McDonalds,Food & Drink,Chicago,ACC003
+TXN095,2025-03-07 11:30:00,88.00,Walgreens,Health,Chicago,ACC003
+TXN096,2025-03-07 15:00:00,42.00,Portillos,Food & Drink,Chicago,ACC003
+TXN097,2025-03-06 08:30:00,48.00,Peets Coffee,Food & Drink,San Francisco,ACC004
+TXN098,2025-03-06 12:00:00,175.00,Patagonia,Shopping,San Francisco,ACC004
+TXN099,2025-03-06 16:00:00,62.00,Safeway,Groceries,San Francisco,ACC004
+TXN100,2025-03-07 09:00:00,42.00,Peets Coffee,Food & Drink,San Francisco,ACC004
